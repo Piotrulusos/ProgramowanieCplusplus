@@ -56,7 +56,38 @@ vector<int>unikalnosc(vector<int>tab)
 
 	for (int i = 0; i < tab.size(); i++)
 	{
-		if (czyNalezy(wynik, tab[i]) == false)
+		if (!czyNalezy(wynik, tab[i]))
+		{
+			wynik.push_back(tab[i]);
+		}
+	}
+	return wynik;
+}
+
+int suma(vector<int>tab)
+{
+	int wynik = 0;
+
+	for (int i = 0; i < tab.size(); i++)
+	{
+		wynik += tab[i];
+	}
+	return wynik;
+}
+
+double avg(vector<int>tab)
+{
+	double wynik = suma(tab);
+	return wynik / tab.size();
+}
+
+vector<int>podzielne(vector<int>tab, int dzielnik, int reszta = 0)
+{
+	vector<int>wynik;
+
+	for (int i = 0; i < tab.size(); i++)
+	{
+		if (tab[i] % dzielnik == reszta)
 		{
 			wynik.push_back(tab[i]);
 		}
@@ -67,9 +98,25 @@ vector<int>unikalnosc(vector<int>tab)
 int main()
 {
     std::cout << "Hello World!\n";
-	
-	vector<int>tab = { 3,5,1,3,2,5,1,7,1 };
-	
-	vector<int>wynik = unikalnosc(tab);
-	wypisz(wynik);
+	vector<int>tab = { 1, 2, 3, 4, 6,5 ,6 ,7 ,8 ,9,10 };
+	wypisz(tab);
+
+	int dzielnik = 2;
+	int reszta = 0;
+
+	int wynik = suma(tab);
+	cout << wynik << endl;
+
+	double srednia = avg(tab);
+	cout << srednia << endl;
+
+	vector<int>dzielenie = podzielne(tab, dzielnik, reszta);
+	wypisz(dzielenie);
 }
+
+//1. Wymyślić przykład.
+//2. Sprawdzić czy przykład jest kompletny.
+//3. Sformalizowanie przykładu.
+//4. Nagłówek funkcji.
+//5. Ciało funkcji.
+//6. Nie wiesz co pisać, to wróć do przukładu

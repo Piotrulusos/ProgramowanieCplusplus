@@ -108,43 +108,70 @@ vector<int> reverseInt(int liczba) {
 	return wynik;
 }
 
-vector<int>dodaj(vector<int>tab, vector<int>tab1)
+vector<int>dodaj(vector<int>l1, vector<int>l2)
 {
 	vector<int>wynik;
+	int reszta = 0;
 
-	for (int i = 0; i < tab.size(); i++)
+	for (int i = 0; i < l1.size(); i++)
 	{
-		int suma = tab[i] + tab1[i];
-		wynik.push_back(suma);
+		int dodawanie_wynik = l1[1] + l2[i] + reszta;
+		int reszta = dodawanie_wynik / 10;
+		dodawanie_wynik = dodawanie_wynik % 10;
+		wynik.push_back(dodawanie_wynik);
 	}
+	wynik.push_back(reszta);
+
 	return wynik;
+}
+
+int ObliczanieCyfryKontrolnej(long long pesel) 
+{
+	return (9 * ((pesel / 1000000000) % 10) +
+		7 * ((pesel / 100000000) % 10) +
+		3 * ((pesel / 10000000) % 10) +
+		1 * ((pesel / 1000000) % 10) +
+		9 * ((pesel / 100000) % 10) +
+		7 * ((pesel / 10000) % 10) +
+		3 * ((pesel / 1000) % 10) +
+		1 * ((pesel / 100) % 10) +
+		9 * ((pesel / 10) % 10) +
+		7 * (pesel % 10)) % 10;
+}
+
+bool sprawdzanieCyfryKontrolnej(long long pesel) {
+	int sumacyfry = ObliczanieCyfryKontrolnej(pesel);
+	return (sumacyfry == (pesel % 10));
 }
 
 int main()
 {
     std::cout << "Hello World!\n";
-	vector<int>tab = { 1, 2, 3, 4, 6,5 ,6 ,7 ,8 ,9,10 };
-	wypisz(tab);
-
-	int dzielnik = 2;
-	int reszta = 0;
-
-	int sumka = suma(tab);
-	cout << sumka << endl;
-
-	double srednia = avg(tab);
-	cout << srednia << endl;
-
-	vector<int>dzielenie = podzielne(tab, dzielnik, reszta);
-	wypisz(dzielenie);
-	
 	vector<int>wynik(reverseInt(123));
 	wypisz(wynik);
 	vector<int>l1 = reverseInt(234);
+	wypisz(l1);
 	vector<int>l2 = reverseInt(328);
+	wypisz(l2);
 
 	vector<int>l3 = dodaj(l1, l2);
 	wypisz(l3);
+	
+	int suma_l3 = suma(l3);
+	cout << suma_l3 << endl;
+
+	long long pesel = 99999999999;
+	int cyfra_kontrolna = ObliczanieCyfryKontrolnej(pesel);
+	cout << cyfra_kontrolna << endl;
+	if (sprawdzanieCyfryKontrolnej(pesel)) 
+	{
+		cout << "PESEL prawidlowy" << endl;
+	}
+	else 
+	{
+		cout << "PESEL nieprawidlowy" << endl;
+	}
+	return 0;
 }
 
 //1. Wymyślić przykład.
